@@ -171,7 +171,7 @@ function run() {
     const found = search(v);
     const searchHit = found.length > 0
     guide.style.display = 'none';
-    results.style.display = searchHit ? 'block' : 'none';
+    results.style.display = searchHit ? 'flex' : 'none';
     empty.style.display = searchHit ? 'none' : 'block';
     if (searchHit) {
       renderResults(found, v);
