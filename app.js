@@ -137,26 +137,21 @@ function run() {
   const results = $('#results');
   const empty = $('#empty');
 
-  // Case 1: Empty search - Show Guide
   if (!v.trim()) {
-    guide.style.display = 'block'; // Force visible
-    results.hidden = true;         // Force hidden
-    empty.hidden = true;           // Force hidden
-    return;
-  }
-
-  // Case 2: Searching - Run search
-  const found = search(v);
-
-  if (found.length > 0) {
-    guide.style.display = 'none';  // Force hidden
-    results.hidden = false;        // Force visible
-    empty.hidden = true;
-    renderResults(found, v);
+    // STATE: Empty search box
+    guide.style.display = 'block';
+    results.style.display = 'none';
+    empty.style.display = 'none';
   } else {
-    guide.style.display = 'none';  // Force hidden
-    results.hidden = true;
-    empty.hidden = false;          // Force visible
+    // STATE: Something entered
+    const found = search(v);
+    const searchHit = found.length > 0
+    guide.style.display = 'none';
+    results.style.display = searchHit ? 'block' : 'none';
+    empty.style.display = searchHit ? 'none' : 'block';
+    if (searchHit) {
+      renderResults(found, v);
+    }
   }
 }
 
