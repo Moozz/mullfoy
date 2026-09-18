@@ -165,7 +165,8 @@ main {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 14px
+  padding: 14px;
+  margin-bottom: 16px;
 }
 
 h2 {
@@ -186,7 +187,8 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2px 2px 0
+  padding: 2px 2px 0;
+  margin-bottom: 14px;
 }
 
 .ghost {
@@ -258,7 +260,9 @@ h2 {
   gap: 7px;
   overflow-x: auto;
   padding-bottom: 2px;
-  scrollbar-width: none
+  scrollbar-width: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .quicknav::-webkit-scrollbar {
@@ -281,7 +285,7 @@ h2 {
   background: #e7f1ff;
   border-left: 4px solid var(--blue);
   padding: 10px 12px;
-  margin-bottom: 2px
+  margin-bottom: 2px;
 }
 
 .step.hz {
@@ -365,7 +369,9 @@ h2 {
 .browse {
   display: flex;
   flex-direction: column;
-  gap: 9px
+  gap: 9px;
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
 
 details {
