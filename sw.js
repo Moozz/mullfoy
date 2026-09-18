@@ -1,5 +1,5 @@
 const C = 'wg-v3';
-const SHELL = ['./','./index.html','./style.css','./app.js','./data/items.json','./manifest.json'];
+const SHELL = ['./', './index.html', './style.css', './app.js', './data/items.json', './manifest.json'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(C).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

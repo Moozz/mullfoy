@@ -1,126 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#198754">
-<title>Wohin damit? — Erlangen Waste Guide</title>
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icons/icon-192.png">
-<link rel="apple-touch-icon" href="./icons/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Wohin damit?">
-<link rel="stylesheet" href="./style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#198754">
+  <title>Wohin damit? — Erlangen Waste Guide</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Wohin damit?">
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <span class="logo">♻️</span>
-    <div>
-      <h1>Wohin damit?</h1>
-      <p>Erlangen waste sorting guide</p>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">♻️</span>
+      <div>
+        <h1>Wohin damit?</h1>
+        <p>Erlangen waste sorting guide</p>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<div class="searchwrap">
-  <div class="searchbox">
-    <span class="sicon">🔍</span>
-    <input id="q" type="search" inputmode="search" autocomplete="off"
-           autocapitalize="off" spellcheck="false"
-           placeholder="Search an item… foil, sponge, Schale">
-    <button id="clear" class="clear" aria-label="Clear">✕</button>
-  </div>
-  <div id="recent" class="recent" hidden></div>
-</div>
-
-<main>
-  <!-- error banner, only shown if boot fails -->
-  <section id="err" class="errbox" hidden></section>
-
-  <!-- ===== SEARCH RESULTS ===== -->
-  <section id="results" class="results" hidden></section>
-
-  <section id="empty" class="empty" hidden>
-    <p class="big">🤔 Not in the list yet</p>
-    <p>Try another word (English or German), or use the rule of thumb:</p>
-    <div class="fallback">
-      Held a product? → 🟨 Yellow &nbsp;·&nbsp; Clean dry paper? → 🟦 Blue &nbsp;·&nbsp;
-      Food/garden? → 🟩 Green &nbsp;·&nbsp; Chemicals/batteries/LED? → ☠️ Hazard &nbsp;·&nbsp;
-      Everything else → ⬛ Black
+  <div class="searchwrap">
+    <div class="searchbox">
+      <span class="sicon">🔍</span>
+      <input id="q" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+        placeholder="Search an item… foil, sponge, Schale">
+      <button id="clear" class="clear" aria-label="Clear">✕</button>
     </div>
-  </section>
-
-  <!-- ===== FULL GUIDE ===== -->
-  <div id="guide">
-
-    <section class="legend" id="legend"></section>
-    <nav class="quicknav" id="quicknav"></nav>
-
-    <section class="card tree">
-      <h2>🔎 Decision tree</h2>
-
-      <div class="step">
-        <div class="q">1 · Is it food or garden waste?</div>
-        <div class="a"><span>Peels, scraps, coffee, tea bags, plants, flowers</span>
-          <span class="tag b-green">🟩 Green</span></div>
-      </div>
-      <div class="arrow">▼ no</div>
-
-      <div class="step">
-        <div class="q">2 · Is it paper or cardboard?</div>
-        <div class="a"><span>Clean &amp; dry — newspaper, box, letter, egg carton, boarding pass</span>
-          <span class="tag b-blue">🟦 Blue</span></div>
-        <div class="a"><span>Wet, greasy, used with food</span>
-          <span class="tag b-green">🟩 Green</span></div>
-        <div class="a"><span>Coated, waxed or thermal receipt</span>
-          <span class="tag b-black">⬛ Black</span></div>
-      </div>
-      <div class="arrow">▼ no</div>
-
-      <div class="step hz">
-        <div class="q">3 · ⚠️ Stop — chemical, battery or LED?</div>
-        <div class="a"><span>Paint, solvent, cleaner, pesticide, full spray can, batteries,
-          LED &amp; energy lamps, tubes, waste oil</span>
-          <span class="tag b-haz">☠️ Hazard</span></div>
-      </div>
-      <div class="arrow">▼ no</div>
-
-      <div class="step">
-        <div class="q">4 · Was it packaging — did it hold a product?</div>
-        <div class="a"><span>Glass bottle or jar</span><span class="tag b-glass">🫙 Glass</span></div>
-        <div class="a"><span>Plastic, metal, foil (even with food residue), carton,
-          paper+plastic composites</span><span class="tag b-yellow">🟨 Yellow</span></div>
-      </div>
-      <div class="arrow">▼ no</div>
-
-      <div class="step">
-        <div class="q">5 · Everything else</div>
-        <div class="a"><span>Plastic objects, hygiene, ceramics, drinking glasses, ash,
-          sponges, wood, textile labels</span><span class="tag b-black">⬛ Black</span></div>
-      </div>
-    </section>
-
-    <section class="secthead">
-      <h2>📦 What goes in each bin</h2>
-      <button id="toggleAll" class="ghost">Collapse all</button>
-    </section>
-    <section id="browse" class="browse"></section>
-
-    <section class="card">
-      <h2>⚠️ Commonly confused items</h2>
-      <p class="hint">Tap a row to see the full reason.</p>
-      <div id="confused" class="confused"></div>
-    </section>
-
+    <div id="recent" class="recent" hidden></div>
   </div>
-</main>
 
-<footer>
-  <p>Local rules: City of Erlangen · <span id="count">…</span> items · works offline</p>
-</footer>
+  <main>
+    <!-- error banner, only shown if boot fails -->
+    <section id="err" class="errbox" hidden></section>
 
-<script src="./app.js"></script>
+    <!-- ===== SEARCH RESULTS ===== -->
+    <section id="results" class="results" hidden></section>
+
+    <section id="empty" class="empty" hidden>
+      <p class="big">🤔 Not in the list yet</p>
+      <p>Try another word (English or German), or use the rule of thumb:</p>
+      <div class="fallback">
+        Held a product? → 🟨 Yellow &nbsp;·&nbsp; Clean dry paper? → 🟦 Blue &nbsp;·&nbsp;
+        Food/garden? → 🟩 Green &nbsp;·&nbsp; Chemicals/batteries/LED? → ☠️ Hazard &nbsp;·&nbsp;
+        Everything else → ⬛ Black
+      </div>
+    </section>
+
+    <!-- ===== FULL GUIDE ===== -->
+    <div id="guide">
+
+      <section class="legend" id="legend"></section>
+      <nav class="quicknav" id="quicknav"></nav>
+
+      <section class="card tree">
+        <h2>🔎 Decision tree</h2>
+
+        <div class="step">
+          <div class="q">1 · Is it food or garden waste?</div>
+          <div class="a"><span>Peels, scraps, coffee, tea bags, plants, flowers</span>
+            <span class="tag b-green">🟩 Green</span>
+          </div>
+        </div>
+        <div class="arrow">▼ no</div>
+
+        <div class="step">
+          <div class="q">2 · Is it paper or cardboard?</div>
+          <div class="a"><span>Clean &amp; dry — newspaper, box, letter, egg carton, boarding pass</span>
+            <span class="tag b-blue">🟦 Blue</span>
+          </div>
+          <div class="a"><span>Wet, greasy, used with food</span>
+            <span class="tag b-green">🟩 Green</span>
+          </div>
+          <div class="a"><span>Coated, waxed or thermal receipt</span>
+            <span class="tag b-black">⬛ Black</span>
+          </div>
+        </div>
+        <div class="arrow">▼ no</div>
+
+        <div class="step hz">
+          <div class="q">3 · ⚠️ Stop — chemical, battery or LED?</div>
+          <div class="a"><span>Paint, solvent, cleaner, pesticide, full spray can, batteries,
+              LED &amp; energy lamps, tubes, waste oil</span>
+            <span class="tag b-haz">☠️ Hazard</span>
+          </div>
+        </div>
+        <div class="arrow">▼ no</div>
+
+        <div class="step">
+          <div class="q">4 · Was it packaging — did it hold a product?</div>
+          <div class="a"><span>Glass bottle or jar</span><span class="tag b-glass">🫙 Glass</span></div>
+          <div class="a"><span>Plastic, metal, foil (even with food residue), carton,
+              paper+plastic composites</span><span class="tag b-yellow">🟨 Yellow</span></div>
+        </div>
+        <div class="arrow">▼ no</div>
+
+        <div class="step">
+          <div class="q">5 · Everything else</div>
+          <div class="a"><span>Plastic objects, hygiene, ceramics, drinking glasses, ash,
+              sponges, wood, textile labels</span><span class="tag b-black">⬛ Black</span></div>
+        </div>
+      </section>
+
+      <section class="secthead">
+        <h2>📦 What goes in each bin</h2>
+        <button id="toggleAll" class="ghost">Collapse all</button>
+      </section>
+      <section id="browse" class="browse"></section>
+
+      <section class="card">
+        <h2>⚠️ Commonly confused items</h2>
+        <p class="hint">Tap a row to see the full reason.</p>
+        <div id="confused" class="confused"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Local rules: City of Erlangen · <span id="count">…</span> items · works offline</p>
+  </footer>
+
+  <script src="./app.js"></script>
 </body>
+
 </html>
