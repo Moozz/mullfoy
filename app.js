@@ -132,17 +132,22 @@ function run() {
   clearBtn.classList.toggle('show', !!v);
   renderR();
 
-  // FIX: Explicitly handle empty state
   if (!v.trim()) {
+    // Force show guide, force hide others
+    const guide = $('#guide');
+    guide.hidden = false;
+    guide.style.display = 'block'; // Ensure it's not overridden
+
     $('#results').hidden = true;
     $('#empty').hidden = true;
-    $('#guide').hidden = false; // Show the full guide
     return;
   }
 
-  // Otherwise, run the search
+  // Searching...
   renderResults(search(v), v);
+  $('#guide').hidden = true;
 }
+
 qEl.addEventListener('input', run);
 qEl.addEventListener('change', () => pushR(qEl.value));
 qEl.addEventListener('keydown', e => { if (e.key === 'Enter') { pushR(qEl.value); qEl.blur(); } });
