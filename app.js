@@ -73,7 +73,8 @@ function renderLegend() {
 function renderBrowse() {
   $('#browse').innerHTML = Object.entries(BINS).map(([k, b]) => {
     const L = ITEMS.filter(i => i.bin === k);
-    return `<details id="bin-${k}" open>
+    // REMOVED 'open' FROM THE TAG BELOW
+    return `<details id="bin-${k}">
       <summary class="${b.cls}">
         <span class="em">${b.em}</span>
         <span>${b.label}<span class="sub">${b.sub}</span></span>
@@ -167,10 +168,14 @@ $('#confused').addEventListener('click', e => {
   scrollTo({ top: 0, behavior: 'smooth' });
 });
 $('#toggleAll').addEventListener('click', () => {
-  const d = [...document.querySelectorAll('#browse details')], open = d.some(x => x.open);
-  d.forEach(x => x.open = !open);
-  $('#toggleAll').textContent = open ? 'Expand all' : 'Collapse all';
+  const d = [...document.querySelectorAll('#browse details')];
+  // Now check if ANY are closed (instead of any open)
+  const anyClosed = d.some(x => !x.open);
+  d.forEach(x => x.open = anyClosed);
+  // Update button text to reflect next action
+  $('#toggleAll').textContent = anyClosed ? 'Collapse all' : 'Expand all';
 });
+
 addEventListener('beforeprint', () => document.querySelectorAll('details').forEach(d => d.open = true));
 
 /* ================= boot ================= */
