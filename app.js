@@ -133,20 +133,31 @@ function run() {
   clearBtn.classList.toggle('show', !!v);
   renderR();
 
-  if (!v.trim()) {
-    // Force show guide, force hide others
-    const guide = $('#guide');
-    guide.hidden = false;
-    guide.style.display = 'block'; // Ensure it's not overridden
+  const guide = $('#guide');
+  const results = $('#results');
+  const empty = $('#empty');
 
-    $('#results').hidden = true;
-    $('#empty').hidden = true;
+  // Case 1: Empty search - Show Guide
+  if (!v.trim()) {
+    guide.style.display = 'block'; // Force visible
+    results.hidden = true;         // Force hidden
+    empty.hidden = true;           // Force hidden
     return;
   }
 
-  // Searching...
-  renderResults(search(v), v);
-  $('#guide').hidden = true;
+  // Case 2: Searching - Run search
+  const found = search(v);
+
+  if (found.length > 0) {
+    guide.style.display = 'none';  // Force hidden
+    results.hidden = false;        // Force visible
+    empty.hidden = true;
+    renderResults(found, v);
+  } else {
+    guide.style.display = 'none';  // Force hidden
+    results.hidden = true;
+    empty.hidden = false;          // Force visible
+  }
 }
 
 qEl.addEventListener('input', run);
