@@ -70,6 +70,30 @@ function renderLegend() {
     `<button data-go="bin-${k}">${b.em} ${b.label}</button>`).join('');
 }
 
+function renderSchedule() {
+  const today = new Date();
+  // We use September 8th, 2026 as the base Tuesday (the first known collection)
+  const schedules = [
+    { name: 'Gelber Sack', next: new Date('2026-09-08'), interval: 14 },
+    { name: 'Papier', next: new Date('2026-09-02'), interval: 14 },
+    { name: 'Bio', next: new Date('2026-09-08'), interval: 7 },
+    { name: 'Restmüll', next: new Date('2026-09-08'), interval: 14 }
+  ];
+
+  $('#schedule').innerHTML = schedules.map(s => {
+    let date = new Date(s.next);
+    // Loop until we find a date that is today or in the future
+    while (date < today) {
+      date.setDate(date.getDate() + s.interval);
+    }
+    const dateStr = date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    return `<div class="crow">
+      <span class="cn">${s.name}</span>
+      <span class="tag b-black" style="background:#555">${dateStr}</span>
+    </div>`;
+  }).join('');
+}
+
 function renderBrowse() {
   $('#browse').innerHTML = Object.entries(BINS).map(([k, b]) => {
     const L = ITEMS.filter(i => i.bin === k);
@@ -198,7 +222,11 @@ fetch('./data/items.json', { cache: 'no-cache' })
   .then(d => {
     ITEMS = d.items || [];
     if (!ITEMS.length) throw new Error('items.json loaded but contains 0 items');
-    renderLegend(); renderBrowse(); renderConfused(); renderR();
+    renderLegend();
+    renderBrowse();
+    renderConfused();
+    renderR();
+    renderSchedule(); // <--- ADD THIS
     const dq = new URLSearchParams(location.search).get('q');
     if (dq) { qEl.value = dq; run(); }
   })
