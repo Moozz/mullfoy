@@ -164,15 +164,15 @@ function run() {
   if (!v.trim()) {
     // STATE: Empty search box
     guide.style.display = 'flex';
-    results.style.display = 'none';
-    empty.style.display = 'none';
+    results.hidden = true;
+    empty.hidden = true;
   } else {
     // STATE: Something entered
     const found = search(v);
     const searchHit = found.length > 0
     guide.style.display = 'none';
-    results.style.display = searchHit ? 'flex' : 'none';
-    empty.style.display = searchHit ? 'none' : 'flex';
+    results.hidden = searchHit;
+    empty.hidden = !searchHit;
     if (searchHit) {
       renderResults(found, v);
     }
