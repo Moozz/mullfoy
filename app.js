@@ -77,7 +77,7 @@ function renderSchedule() {
     { name: 'Gelber Sack', next: new Date('2026-09-08'), interval: 14 },
     { name: 'Papier', next: new Date('2026-09-02'), interval: 14 },
     { name: 'Bio', next: new Date('2026-09-08'), interval: 7 },
-    { name: 'Restmüll', next: new Date('2026-09-08'), interval: 14 }
+    { name: 'Restmüll', next: new Date('2026-09-15'), interval: 14 }
   ];
 
   $('#schedule').innerHTML = schedules.map(s => {
